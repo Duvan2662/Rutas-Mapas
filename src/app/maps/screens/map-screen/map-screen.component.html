@@ -1,1 +1,7 @@
-<p>map-screen works!</p>
+
+
+@if (!isUserLocationReady) {
+  <app-loading></app-loading>
+}@else {
+  <app-maps-view></app-maps-view>
+}
