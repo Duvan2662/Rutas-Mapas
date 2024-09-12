@@ -50,7 +50,11 @@ export class PlacesService {
 
   public getPlacesByQuery(query:string = '') {
     //TODO evaluar cuando el query es vacio
-
+    if (query.length === 0) {
+      this.places.set([]);
+      this.isLoadingPlaces.set(false);
+      return;
+    }
     if (this.latitude() === 0 && this.longitude() === 0) {
       throw Error('No ahi userLocation')
     }
