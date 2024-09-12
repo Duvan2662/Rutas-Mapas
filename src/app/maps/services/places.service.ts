@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Feature, PlacesResponse } from '../interfaces/places.interface';
+import { PlacesApiClient } from '../api/placesApiClient';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class PlacesService {
     this.latitude()
   ]);
 
-  private http = inject(HttpClient);
+  private placesApi = inject(PlacesApiClient);
   public isLoadingPlaces = signal(false);
   public places = signal<Feature[]>([]);
 
@@ -50,8 +51,16 @@ export class PlacesService {
   public getPlacesByQuery(query:string = '') {
     //TODO evaluar cuando el query es vacio
 
+    if (this.latitude() === 0 && this.longitude() === 0) {
+      throw Error('No ahi userLocation')
+    }
+
     this.isLoadingPlaces.set(true);
-    this.http.get<PlacesResponse>(`https://api.mapbox.com/search/geocode/v6/forward?q=${query}&proximity=-74.16801336419535,2C4.640612418987658&language=es&access_token=pk.eyJ1IjoiZHV2YW4xNyIsImEiOiJjbTA1cGJoa20wamF3Mm1vZXpuZzhvc2FzIn0.uKGdT4Lf5qV7uf-q10PBfA`)
+    this.placesApi.get<PlacesResponse>(`q=${query}`,{
+      params:{
+        proximity: this.userLocation().join(',')
+      }
+    })
       .subscribe(resp => {
         console.log(resp.features);
         this.isLoadingPlaces.set(false);
