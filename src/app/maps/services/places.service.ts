@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Feature, PlacesResponse } from '../interfaces/places.interface';
 import { PlacesApiClient } from '../api/placesApiClient';
+import { MapService } from './map.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,8 @@ export class PlacesService {
   private placesApi = inject(PlacesApiClient);
   public isLoadingPlaces = signal(false);
   public places = signal<Feature[]>([]);
+  private mapService = inject(MapService);
+
 
   // Verifica si las coordenadas son diferentes de [0, 0]
   get isUserLocationReady(): boolean {
@@ -55,6 +58,7 @@ export class PlacesService {
       this.isLoadingPlaces.set(false);
       return;
     }
+
     if (this.latitude() === 0 && this.longitude() === 0) {
       throw Error('No ahi userLocation')
     }
@@ -66,9 +70,10 @@ export class PlacesService {
       }
     })
       .subscribe(resp => {
-        console.log(resp.features);
+        // console.log(resp.features);
         this.isLoadingPlaces.set(false);
         this.places.set(resp.features)
+        this.mapService.createMarkerFromPlaces(this.places());
       })
 
   }
