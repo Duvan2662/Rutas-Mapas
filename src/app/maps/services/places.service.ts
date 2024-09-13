@@ -77,4 +77,9 @@ export class PlacesService {
       })
 
   }
+
+
+  public deletePlaces(){
+    this.places.set([]);
+  }
 }
