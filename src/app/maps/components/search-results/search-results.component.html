@@ -13,8 +13,8 @@
       (click)="flyTo(place)"
       [class.active] ="place.id === selectedId()"
     >
-      <h6>{{place.properties.name}}</h6>
-      <p>{{place.properties.full_address}}</p>
+      <h6>{{place.text_es}}</h6>
+      <p>{{place.place_name}}</p>
       <button
         class="btn btn-sm"
         [ngClass] = "(place.id === selectedId()) ? 'btn-outline-light':'btn-outline-primary'"

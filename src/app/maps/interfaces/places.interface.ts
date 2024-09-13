@@ -1,14 +1,43 @@
 export interface PlacesResponse {
   type:        string;
+  query:       string[];
   features:    Feature[];
   attribution: string;
 }
 
 export interface Feature {
-  type:       string;
-  id:         string;
-  geometry:   Geometry;
-  properties: Properties;
+  id:                   string;
+  type:                 string;
+  place_type:           string[];
+  relevance:            number;
+  properties:           Properties;
+  text_es:              string;
+  language_es?:         Language;
+  place_name_es:        string;
+  text:                 string;
+  language?:            Language;
+  place_name:           string;
+  bbox?:                number[];
+  center:               number[];
+  geometry:             Geometry;
+  context:              Context[];
+  matching_text?:       string;
+  matching_place_name?: string;
+}
+
+export interface Context {
+  id:           string;
+  mapbox_id:    string;
+  wikidata?:    string;
+  short_code?:  string;
+  text_es:      string;
+  language_es?: Language;
+  text:         string;
+  language?:    Language;
+}
+
+export enum Language {
+  Es = "es",
 }
 
 export interface Geometry {
@@ -17,70 +46,11 @@ export interface Geometry {
 }
 
 export interface Properties {
-  mapbox_id:       string;
-  feature_type:    string;
-  full_address:    string;
-  name:            string;
-  name_preferred:  string;
-  coordinates:     Coordinates;
-  place_formatted: string;
-  bbox:            number[];
-  context:         Context;
-}
-
-export interface Context {
-  region:        Region;
-  country:       Country;
-  place:         Locality;
-  postcode?:     Postcode;
-  locality?:     Locality;
-  neighborhood?: Locality;
-}
-
-export interface Country {
-  mapbox_id:            string;
-  name:                 string;
-  wikidata_id:          string;
-  country_code:         string;
-  country_code_alpha_3: string;
-  translations:         Translations;
-}
-
-export interface Translations {
-  es: Es;
-}
-
-export interface Es {
-  language: Language;
-  name:     string;
-}
-
-export enum Language {
-  Es = "es",
-}
-
-export interface Locality {
-  mapbox_id:    string;
-  name:         string;
-  wikidata_id?: string;
-  translations: Translations;
-}
-
-export interface Postcode {
-  mapbox_id: string;
-  name:      string;
-}
-
-export interface Region {
-  mapbox_id:        string;
-  name:             string;
-  wikidata_id:      string;
-  region_code:      string;
-  region_code_full: string;
-  translations:     Translations;
-}
-
-export interface Coordinates {
-  longitude: number;
-  latitude:  number;
+  mapbox_id?:  string;
+  wikidata?:   string;
+  category?:   string;
+  landmark?:   boolean;
+  address?:    string;
+  foursquare?: string;
+  maki?:       string;
 }

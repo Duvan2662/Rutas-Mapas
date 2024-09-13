@@ -28,7 +28,7 @@ export class SearchResultsComponent {
 
   public flyTo(place:Feature) {
     this.selectedId.set(place.id)
-    const {longitude,latitude} = place.properties.coordinates
+    const [longitude,latitude] = place.center
     this.MapService.flyTo([longitude,latitude])
   }
 

@@ -64,16 +64,16 @@ export class PlacesService {
     }
 
     this.isLoadingPlaces.set(true);
-    this.placesApi.get<PlacesResponse>(`q=${query}`,{
+    this.placesApi.get<PlacesResponse>(`/${query}.json`,{
       params:{
         proximity: this.userLocation().join(',')
       }
     })
       .subscribe(resp => {
-        // console.log(resp.features);
+        console.log(resp.features);
         this.isLoadingPlaces.set(false);
         this.places.set(resp.features)
-        this.mapService.createMarkerFromPlaces(this.places());
+        this.mapService.createMarkerFromPlaces(this.places(),[this.longitude(),this.latitude()]);
       })
 
   }

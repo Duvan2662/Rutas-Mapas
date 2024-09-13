@@ -7,7 +7,9 @@ import { environment } from "../../../environments/environments";
 })
 
 export class PlacesApiClient extends HttpClient {
-  public baseUrl = signal('https://api.mapbox.com/search/geocode/v6/forward?');
+  // public baseUrl = signal('https://api.mapbox.com/search/geocode/v6/forward?');
+  public baseUrl = signal('https://api.mapbox.com/geocoding/v5/mapbox.places');
+
   constructor(handler:HttpHandler){
     super(handler);
   }
@@ -20,6 +22,7 @@ export class PlacesApiClient extends HttpClient {
     url= this.baseUrl() + url;
     return super.get<T>(url,{
       params:{
+        limit:5,
         language: 'es',
         access_token:environment.mapbox_key,
         ...options.params

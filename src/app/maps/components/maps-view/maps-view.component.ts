@@ -45,7 +45,6 @@ export class MapsViewComponent implements AfterViewInit {
       .addTo(map)
 
    this.mapServices.setMap(map);
-
   }
 
 }
