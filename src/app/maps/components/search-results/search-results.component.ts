@@ -32,4 +32,13 @@ export class SearchResultsComponent {
     this.MapService.flyTo([longitude,latitude])
   }
 
+  public getDirections(place: Feature) {
+    if (!this.placesService.userLocation()) {
+      throw Error ('No ahi user location')
+    }
+    const start = this.placesService.userLocation() as [number,number];
+    const end = place.center as [number,number];
+
+    this.MapService.getRouteBetweenPoints(start,end)
+  }
 }
