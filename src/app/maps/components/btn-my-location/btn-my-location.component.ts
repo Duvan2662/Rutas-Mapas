@@ -23,7 +23,7 @@ export class BtnMyLocationComponent {
     }
     const [longitude, latitude] = this.placesServices.userLocation()
     this.mapServices.flyTo([longitude,latitude])
-    console.log('Ir a mi ubicación');
+    // console.log('Ir a mi ubicación');
 
   }
 }

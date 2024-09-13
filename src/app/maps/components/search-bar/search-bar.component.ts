@@ -21,7 +21,7 @@ export class SearchBarComponent {
     }
 
     this.debounceTimer.set(setTimeout(()=>{
-      console.log('Mandar este query:', query);
+      // console.log('Mandar este query:', query);
       this.placesService.getPlacesByQuery(query)
 
     },350))

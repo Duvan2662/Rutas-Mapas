@@ -83,7 +83,7 @@ export class MapService {
 
 
   private drawPolyline(route:Route) {
-    console.log({Distancia: route.distance / 1000, duration: route.duration/60});
+    // console.log({Distancia: route.distance / 1000, duration: route.duration/60});
     if (!this.map()) {
       throw new Error("Mapa no inicializado");
     }

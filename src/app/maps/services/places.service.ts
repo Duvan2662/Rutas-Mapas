@@ -43,7 +43,7 @@ export class PlacesService {
         },
         (error) => {
           alert('No se pudo obtener la geolocalización');
-          console.log(error);
+          // console.log(error);
           reject();
         }
       );
@@ -70,7 +70,7 @@ export class PlacesService {
       }
     })
       .subscribe(resp => {
-        console.log(resp.features);
+        // console.log(resp.features);
         this.isLoadingPlaces.set(false);
         this.places.set(resp.features)
         this.mapService.createMarkerFromPlaces(this.places(),[this.longitude(),this.latitude()]);
